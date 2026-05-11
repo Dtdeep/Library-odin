@@ -1,0 +1,18 @@
+.main-container{
+    width: 100%;
+    height: 100vh;;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 3fr;
+}
+
+.books-container{
+    background-color: pink;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+}
+
+.container > div{
+    border : 1px solid black;
+    height: 200px;
+}
