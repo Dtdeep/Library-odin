@@ -9,7 +9,24 @@
 </head>
 <body>
     <div class="main-container">
-        <div></div>
+        <div>
+            <button command="show-modal" commandfor="my-dialog">Add New Book</button>
+            <dialog id="my-dialog">
+                <form action="">
+                    <label for="title-input">Title </label>
+                    <input type="text" id="title-input">
+                    <label for="author-input">Author </label>
+                    <input type="text" id="author-input">
+                    <label for="pages-input">No. of Pages</label>
+                    <input type="text" id="pages-input">
+                    <label for="read-input">Status</label>
+                    <input type="text" id="read-input">
+                    <button type="submit" id="submit-btn">Submit</button>
+                </form>
+                <button commandfor="my-dialog" command="close">Close</button>
+            </dialog>
+        </div>
+        
         <div class="books-container" id="books-container">
             <!-- books are inserted here -->
         </div>

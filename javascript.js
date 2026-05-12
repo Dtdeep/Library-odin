@@ -1,4 +1,11 @@
+const mainContainer = document.querySelector(".main-container")
 const booksContainer = document.querySelector("#books-container");
+const titleInput = document.querySelector("#title-input")
+const authorInput = document.querySelector("#author-input")
+const pagesInput = document.querySelector("#pages-input")
+const readInput = document.querySelector("#read-input")
+
+
 
 const myLibrary = [];
 
@@ -15,32 +22,59 @@ function addBookToLibrary(bookTitle, bookAuthor, bookPages, bookRead) {
     myLibrary.push(book);
 }
 
-addBookToLibrary("Mikay adventures", "Mikay", "255", "Has Read");
-addBookToLibrary("Baho mikay", "Mikay", "155", "Has not Read");
-addBookToLibrary("Mikay adventures 2", "Mikay", "355", "Has Read");
+const renderCards = () => {
+            while (booksContainer.firstChild) {
+                booksContainer.removeChild(booksContainer.firstChild);
+            }
+            myLibrary.map(item => {
+                const closeBtn = document.createElement("button");
+                const bookCard = document.createElement("div");
+                const pTitle = document.createElement("p");
+                const pAuthor = document.createElement("p");
+                const pPages = document.createElement("p");
+                const pRead = document.createElement("p");
+                const pId = document.createElement("p");
 
+                bookCard.dataset.id = item.id.toString();
+                closeBtn.textContent = "x"
+                closeBtn.setAttribute("id", "close-btn")
+                pId.textContent = `Book ID: ${item.id}`
+                pTitle.textContent = `Title: ${item.title}`;
+                pAuthor.textContent = `Author: ${item.author}`;
+                pPages.textContent = `Pages: ${item.pages}`;
+                pRead.textContent = `Read: ${item.read}`;
+                
+                booksContainer.appendChild(bookCard);
+                bookCard.appendChild(closeBtn);
+                bookCard.appendChild(pId);
+                bookCard.appendChild(pTitle);
+                bookCard.appendChild(pAuthor);
+                bookCard.appendChild(pPages);
+                bookCard.appendChild(pRead);
+                console.log(`ïts working?!`);
+        })
+}
 
-const createCards = myLibrary.map(item => {
-    const bookCard = document.createElement("div");
-    const pTitle = document.createElement("p");
-    const pAuthor = document.createElement("p");
-    const pPages = document.createElement("p");
-    const pRead = document.createElement("p");
-    const pId = document.createElement("p");
-
-    pId.textContent = `Book ID: ${item.id}`
-    pTitle.textContent = `Title: ${item.title}`;
-    pAuthor.textContent = `Author: ${item.author}`;
-    pPages.textContent = `Pages: ${item.pages}`;
-    pRead.textContent = `Read: ${item.read}`;
+mainContainer.addEventListener('click' , (event)=>{
+    let target = event.target;
     
-
-    booksContainer.appendChild(bookCard);
-    bookCard.appendChild(pId);
-    bookCard.appendChild(pTitle);
-    bookCard.appendChild(pAuthor);
-    bookCard.appendChild(pPages);
-    bookCard.appendChild(pRead);
-    console.log(`ïts working?!`);
+    switch(target.id){
+        case "submit-btn":
+            const titleText = titleInput.textContent;
+            const authorText = authorInput.textContent;
+            const pagesText = pagesInput.textContent;
+            const readText = readInput.textContent;
+            addBookToLibrary(titleText, authorText, pagesText, readText);
+            renderCards();
+            event.preventDefault();
+            break;
+        case "close-btn":
+            console.log("closee!!!!")
+            break;
+    }
 })
+
+
+
+
 

@@ -3,16 +3,33 @@
     height: 100vh;;
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 1fr 3fr;
+    grid-template-rows: 1fr 4fr;
+}
+
+.main-container > div:first-child{
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .books-container{
     background-color: pink;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-auto-rows: auto;
+    gap: 10px;
 }
 
-.container > div{
-    border : 1px solid black;
-    height: 200px;
+.books-container > div{
+    border : 1px solid black; 
+}
+
+dialog > form{
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    height: 400px;
+
+    input{
+       max-height: 50px
+    }
 }
