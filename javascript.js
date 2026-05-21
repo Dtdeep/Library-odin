@@ -7,19 +7,6 @@ const readInput = document.querySelector("#read-input");
 
 const myLibrary = [];
 
-function Book(title,author,pages,read) {
-    this.id = crypto.randomUUID();
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.read = read;
-}
-
-function addBookToLibrary(bookTitle, bookAuthor, bookPages, bookRead) {
-    let book = new Book(bookTitle,bookAuthor,bookPages,bookRead);
-    myLibrary.push(book);
-}
-
 const renderCards = () => {
             while (booksContainer.firstChild) {
                 booksContainer.removeChild(booksContainer.firstChild);
@@ -57,8 +44,23 @@ const renderCards = () => {
         })
 };
 
+class Book {
+    id;
+    title;
+    author;
+    pages;
+    read;
 
-Book.prototype.toggleReadStatus = function(status){
+    constructor(title,author,pages,read){
+        this.id = crypto.randomUUID();
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this.read = read;
+    }
+    
+
+    toggleReadStatus(status){
     let read = status;
     if(read === true){
         read = false;
@@ -67,7 +69,13 @@ Book.prototype.toggleReadStatus = function(status){
         read = true;
         this.read = `Read Already`; 
     }
-    renderCards();
+        renderCards();
+    }
+}
+
+function addBookToLibrary(bookTitle, bookAuthor, bookPages, bookRead) {
+    let book = new Book(bookTitle,bookAuthor,bookPages,bookRead);
+    myLibrary.push(book);
 }
 
 mainContainer.addEventListener('click' , (event)=>{
@@ -108,8 +116,3 @@ mainContainer.addEventListener('click' , (event)=>{
             break;
     }
 })
-
-
-
-
-
