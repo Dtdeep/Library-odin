@@ -21,7 +21,7 @@ const renderCards = () => {
                 const pId = document.createElement("p");
                 const readToggle = document.createElement("button");
 
-                bookCard.dataset.id = item.id.toString();
+                bookCard.dataset.id = item.getId.toString();
                 closeBtn.textContent = "x"
                 closeBtn.setAttribute("id", "close-btn");
                 readToggle.setAttribute("id", "toggle-btn");
@@ -45,31 +45,34 @@ const renderCards = () => {
 };
 
 class Book {
-    id;
+    #id;
     title;
     author;
     pages;
     read;
 
     constructor(title,author,pages,read){
-        this.id = crypto.randomUUID();
+        this.#id = crypto.randomUUID();
         this.title = title;
         this.author = author;
         this.pages = pages;
         this.read = read;
     }
+    get getId() {
+        return this.#id;
+    }
     
 
     toggleReadStatus(status){
-    let read = status;
-    if(read === true){
-        read = false;
-        this.read = `Not Read Yet`
-    }else{
-        read = true;
-        this.read = `Read Already`; 
-    }
-        renderCards();
+        let read = status;
+        if(read === true){
+            read = false;
+            this.read = `Not Read Yet`
+        }else{
+            read = true;
+            this.read = `Read Already`; 
+        }
+            renderCards();
     }
 }
 
@@ -83,6 +86,7 @@ mainContainer.addEventListener('click' , (event)=>{
 
     switch(target.id){
         case "submit-btn":
+            event.preventDefault();
             const titleText = titleInput.value;
             const authorText = authorInput.value;
             const pagesText = pagesInput.value;
@@ -90,11 +94,10 @@ mainContainer.addEventListener('click' , (event)=>{
             addBookToLibrary(titleText, authorText, pagesText, readText);
             console.log("Creation of book object Complete");
             renderCards();
-            event.preventDefault();
             break;
         case "close-btn":
             const deleteIndex = myLibrary.findIndex((item)=>{
-                return item.id === target.parentNode.dataset.id;
+                return item.getId === target.parentNode.dataset.id;
             });
             myLibrary.splice(deleteIndex, 1);
             renderCards();
@@ -104,7 +107,7 @@ mainContainer.addEventListener('click' , (event)=>{
         case "toggle-btn":
             let status;
             const findIndex = myLibrary.findIndex((item)=>{
-                return item.id === target.parentNode.dataset.id;
+                return item.getId === target.parentNode.dataset.id;
             });
 
             if(myLibrary[findIndex].read === "Read Already"){
